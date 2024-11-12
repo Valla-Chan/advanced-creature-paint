@@ -2,6 +2,7 @@
 #include "stdafx.h"
 
 // TODO: allow painting by rigblock type (mModelRigBlockType) via Ctrl + Shift
+/*
 enum PartType {
 	Limb,
 	Mouth,
@@ -27,7 +28,7 @@ enum PartType {
 	Chest,
 	Symbol,
 	OutfitDetail,
-};
+};*/
 
 // Return vector of rigblocks with the same texture and name
 vector<Editors::EditorRigblock*> GetSimilarRigblocks(EditorRigblockPtr rigblock) {
