@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 
-// TODO: allow painting by rigblock type via Ctrl + Shift
+// TODO: allow painting by rigblock type (mModelRigBlockType) via Ctrl + Shift
 enum PartType {
 	Limb,
 	Mouth,
