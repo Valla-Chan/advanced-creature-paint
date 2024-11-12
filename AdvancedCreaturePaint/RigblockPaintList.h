@@ -1,34 +1,6 @@
 #pragma once
 #include "stdafx.h"
 
-// TODO: allow painting by rigblock type (mModelRigBlockType) via Ctrl + Shift
-/*
-enum PartType {
-	Limb,
-	Mouth,
-	Eye,
-	Hand,
-	Foot,
-	WeaponCharge,
-	WeaponSpit,
-	WeaponStrike,
-	Wing,
-	Fin,
-	Captain,
-	DI_Armor,
-	DI_Mask,
-	DI_wBlade,
-	DI_wStaff,
-	DI_wGun,
-	DI_wMisc,
-	Detail,
-	Hat,
-	Mask,
-	Shoulder,
-	Chest,
-	Symbol,
-	OutfitDetail,
-};*/
 
 // Return vector of rigblocks with the same texture and name
 vector<Editors::EditorRigblock*> GetSimilarRigblocks(EditorRigblockPtr rigblock) {
@@ -103,23 +75,17 @@ vector<Editors::EditorRigblock*> GetSimilarRigblocks(EditorRigblockPtr rigblock)
 	return rigblockList;
 }
 
-// TODO
-/*
+// Return vector of rigblocks with the same mModelRigBlockType
 vector<Editors::EditorRigblock*> GetCategoricalRigblocks(EditorRigblockPtr rigblock) {
 	vector<Editors::EditorRigblock*> rigblockList = {};
 	auto model = Editor.GetEditorModel();
 
-	LocalizedString mBlockname;
-	uint32_t mSkinDiffuseID;
-	uint32_t mSkinTintID;
-	ResourceKey mCenterKey;
-
-	// Categorize the reference rigblock
-	PropertyListPtr mpMainPropList = rigblock->mpPropList;
-	if (mpMainPropList)
-	{
-
+	for (auto block : model->mRigblocks) {
+		if (block->mModelRigBlockType.instanceID == rigblock->mModelRigBlockType.instanceID) {
+			// Comparison succeeded, add to list.
+			rigblockList.push_back(block.get());
+		}
 	}
 
 	return rigblockList;
-}*/
+}

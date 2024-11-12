@@ -198,7 +198,12 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 					partPaintMode = Symmetric;
 				}
 				if (mouseState.IsShiftDown && bKeyShiftDown == bool(mouseState.IsShiftDown)) {
-					partPaintMode = Similar;
+					if (partPaintMode == Single) {
+						partPaintMode = Similar;
+					}
+					if (partPaintMode == Symmetric) {
+						partPaintMode = Categorical;
+					}
 				}
 
 				{
@@ -260,6 +265,27 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 					// Paint all similar parts
 					else if (partPaintMode == Similar) {
 						for (auto block : GetSimilarRigblocks(rigblock)) {
+							// Find the index for each similar rigblock
+							auto localitem = eastl::find(rigblocks.begin(), rigblocks.end(), block);
+							if (localitem == rigblocks.end()) {
+								SporeDebugPrint("ERROR: rigblock not found in EditorModel::mRigblocks");
+							}
+							int localRigblockIndex = eastl::distance(rigblocks.begin(), localitem);
+
+							for (int region : regions)
+							{
+								if (bApplyPaint) {
+									SetRigblockPaint(block, localRigblockIndex, paint, region);
+								}
+								else {
+									RemoveRigblockPaint(block, localRigblockIndex, region);
+								}
+							}
+						}
+					}
+					// Paint all parts in the same category / rigblock type
+					else if (partPaintMode == Categorical) {
+						for (auto block : GetCategoricalRigblocks(rigblock)) {
 							// Find the index for each similar rigblock
 							auto localitem = eastl::find(rigblocks.begin(), rigblocks.end(), block);
 							if (localitem == rigblocks.end()) {
