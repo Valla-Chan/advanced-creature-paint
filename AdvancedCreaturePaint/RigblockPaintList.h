@@ -69,18 +69,20 @@ vector<Editors::EditorRigblock*> GetSimilarRigblocks(EditorRigblockPtr rigblock)
 				// Compare values to see if this is probably the same rigblock
 				// Name matches
 				if (mBlockname.GetText() == mLocalBlockname.GetText()) {
+
 					// Texture matches
 					if (mSkinDiffuseID == mLocalSkinDiffuseID && mSkinTintID == mLocalSkinTintID) {
 						// Comparison succeeded, add to list.
 						rigblockList.push_back(block.get());
 					}
+
 					// Texture does not match, may be a center variant
 					else {
 						uint32_t mMainCenterModel;
 						uint32_t mThisModel;
 						// Load center file resource
 						PropertyListPtr mpPropListCenter;
-						if (PropManager.GetPropertyList(mCenterKey.instanceID, mCenterKey.groupID, mpPropList))
+						if (PropManager.GetPropertyList(mCenterKey.instanceID, mCenterKey.groupID, mpPropListCenter))
 						{
 							App::Property::GetKeyInstanceID(mpPropListCenter.get(), 0x00F9EFBB, mMainCenterModel); // modelMeshLOD0 in original part's center variant
 							App::Property::GetKeyInstanceID(mpPropList.get(), 0x00F9EFBB, mThisModel); // modelMeshLOD0 in this part
