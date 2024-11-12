@@ -95,7 +95,7 @@ bool AdvancedCreatureDataResource::RemovePaintInfo(int rigblockIndex, int paintR
 	for (int i = 0; i < count; i++)
 	{
 		if (infos[i].rigblockIndex > rigblockIndex ||
-			(infos[i].rigblockIndex == rigblockIndex && infos[i].paint.region > paintRegion))
+			(infos[i].rigblockIndex == rigblockIndex && int(infos[i].paint.region) > paintRegion))
 		{
 			// Since they are ordered, this means the paint info did not exist
 			return false;
