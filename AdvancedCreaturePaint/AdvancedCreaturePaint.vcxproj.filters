@@ -34,6 +34,9 @@
     <ClInclude Include="Constants.h">
       <Filter>AdvancedCreaturePaint</Filter>
     </ClInclude>
+    <ClInclude Include="RigblockPaintList.h">
+      <Filter>AdvancedCreaturePaint</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

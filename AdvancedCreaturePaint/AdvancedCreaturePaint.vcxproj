@@ -104,6 +104,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="RigblockPaintList.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

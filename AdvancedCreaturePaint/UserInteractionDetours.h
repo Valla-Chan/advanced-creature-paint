@@ -24,6 +24,10 @@ virtual_detour(Editor_OnMouseUp__detour, Editors::cEditor, App::IGameMode, bool(
 	bool detoured(MouseButton mouseButton, float mouseX, float mouseY, MouseState mouseState);
 };
 
+member_detour(SetCursor__detour, UTFWin::cCursorManager, bool(uint32_t))
+{
+	bool detoured(uint32_t id);
+};
 
 virtual_detour(Editor_Update__detour, Editors::cEditor, App::IGameMode, void(float, float))
 {

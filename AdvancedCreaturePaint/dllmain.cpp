@@ -6,9 +6,14 @@
 #include <Spore\GeneralAllocator.h>
 #include <Spore\Skinner\cPaintSystem.h>
 
+void PreloadCursors() {
+	CursorManager.Load(0x958A6A35, u"cursor-spg-color-norm");
+	CursorManager.Load(0x958A6A36, u"cursor-spg-color-on");
+}
+
 member_detour(EditorModel_Load__detour, Editors::EditorModel, void(Editors::cEditorResource*))
 {
-	void detoured(Editors::cEditorResource * resourceParam)
+	void detoured(Editors::cEditorResource* resourceParam)
 	{
 		original_function(this, resourceParam);
 
@@ -49,6 +54,7 @@ member_detour(EditorModel_Save__detour, Editors::EditorModel, void(Editors::cEdi
 
 void Initialize()
 {
+	PreloadCursors();
 }
 
 void Dispose()
@@ -62,6 +68,7 @@ void AttachDetours()
 	Editor_HandleMessage__detour::attach(GetAddress(Editors::cEditor, HandleMessage));
 	Editor_OnMouseDown__detour::attach(GetAddress(Editors::cEditor, OnMouseDown));
 	Editor_OnMouseUp__detour::attach(GetAddress(Editors::cEditor, OnMouseUp));
+	SetCursor__detour::attach(GetAddress(UTFWin::cCursorManager, SetActiveCursor));
 	Editor_Update__detour::attach(GetAddress(Editors::cEditor, Update));
 	PaletteCategoryUI_LayoutPagePanel__detour::attach(GetAddress(Palettes::PaletteCategoryUI, LayoutPagePanel));
 
