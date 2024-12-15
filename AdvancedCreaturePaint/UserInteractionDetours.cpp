@@ -209,7 +209,9 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 				{
 					Editors::EditorRigblockPaint paint = Editor.mpPaintPaletteUI->mpActiveCategory->GetSelectedRigblockPaint();
 					// fill in the paint data if it is not set, to prevent glitched normals
-					paint.mPaintID = ACP_PAINT_DEFAULT;
+					if (paint.mPaintID == 0x0) {
+						paint.mPaintID = ACP_PAINT_DEFAULT;
+					}
 					
 
 					// Paint one part
