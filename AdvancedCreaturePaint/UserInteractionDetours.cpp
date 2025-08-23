@@ -133,8 +133,12 @@ uint32_t get_current_cursor() {
 	{
 		if (!bM1Down) {
 			if (bKeyCtrlDown) { return cur_paint_green; }
+			else if (bKeyShiftDown) { return cur_paint_all; }
 		}
-		else if (bHoveredPart) { return cur_paint_red; }
+		else if (bHoveredPart) {
+			if (!bKeyShiftDown) { return cur_paint_red; }
+			else { return cur_paint_all; }
+		}
 		return cur_paint_blue;
 	}
 	return 0x0;
@@ -143,12 +147,14 @@ uint32_t get_current_cursor() {
 bool Editor_OnKeyDown__detour::detoured(int virtualKey, KeyModifiers modifiers)
 {
 	bKeyCtrlDown = modifiers.IsCtrlDown;
+	bKeyShiftDown = modifiers.IsShiftDown;
 	return original_function(this, virtualKey, modifiers);
 }
 
 bool Editor_OnKeyUp__detour::detoured(int virtualKey, KeyModifiers modifiers)
 {
 	bKeyCtrlDown = modifiers.IsCtrlDown;
+	bKeyShiftDown = modifiers.IsShiftDown;
 	return original_function(this, virtualKey, modifiers);
 }
 

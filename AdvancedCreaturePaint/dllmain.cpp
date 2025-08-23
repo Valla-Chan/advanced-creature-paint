@@ -10,6 +10,7 @@ void PreloadCursors() {
 	CursorManager.Load(0x958A6A35, u"cursor-spg-color-norm");
 	CursorManager.Load(0x958A6A36, u"cursor-spg-color-on");
 	CursorManager.Load(0x958A6A37, u"cursor-spg-color-off");
+	CursorManager.Load(0x958A6A38, u"cursor-paint");
 }
 
 member_detour(EditorModel_Load__detour, Editors::EditorModel, void(Editors::cEditorResource*))

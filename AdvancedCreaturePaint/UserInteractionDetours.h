@@ -16,6 +16,7 @@ enum PartMode {
 const uint32_t cur_paint_blue = 0x958A6A35;
 const uint32_t cur_paint_green = 0x958A6A36;
 const uint32_t cur_paint_red = 0x958A6A37;
+const uint32_t cur_paint_all = 0x958A6A38;
 
 
 member_detour(PaletteCategoryUI_LayoutPagePanel__detour, Palettes::PaletteCategoryUI, void())
