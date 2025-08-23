@@ -9,6 +9,7 @@
 void PreloadCursors() {
 	CursorManager.Load(0x958A6A35, u"cursor-spg-color-norm");
 	CursorManager.Load(0x958A6A36, u"cursor-spg-color-on");
+	CursorManager.Load(0x958A6A37, u"cursor-spg-color-off");
 }
 
 member_detour(EditorModel_Load__detour, Editors::EditorModel, void(Editors::cEditorResource*))
@@ -68,6 +69,8 @@ void AttachDetours()
 	Editor_HandleMessage__detour::attach(GetAddress(Editors::cEditor, HandleMessage));
 	Editor_OnMouseDown__detour::attach(GetAddress(Editors::cEditor, OnMouseDown));
 	Editor_OnMouseUp__detour::attach(GetAddress(Editors::cEditor, OnMouseUp));
+	Editor_OnKeyDown__detour::attach(GetAddress(Editors::cEditor, OnKeyDown));
+	Editor_OnKeyUp__detour::attach(GetAddress(Editors::cEditor, OnKeyUp));
 	SetCursor__detour::attach(GetAddress(UTFWin::cCursorManager, SetActiveCursor));
 	Editor_Update__detour::attach(GetAddress(Editors::cEditor, Update));
 	PaletteCategoryUI_LayoutPagePanel__detour::attach(GetAddress(Palettes::PaletteCategoryUI, LayoutPagePanel));

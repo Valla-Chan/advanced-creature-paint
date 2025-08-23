@@ -5,15 +5,6 @@
 
 // We use this file for the user-side of the mod: the paint categories, clicking on parts, etc
 
-const uint32_t ACP_CATEGORY_ID = id("ACP_ce_category_paintbrush");
-const uint32_t ACP_PAINT_DEFAULT = id("VE_Old_Car_Matte_01");
-enum PartMode {
-	Single,
-	Symmetric,
-	Similar,
-	Categorical // TODO: allow painting by rigblock type via Ctrl + Shift
-};
-
 // These are variables we need to keep; important we clean any EASTL structures on shutdown!
 Graphics::Model* sLastClickedRigblock = nullptr;
 PaintBrushCategoryWinProc* sCategoryWinProc = nullptr;
@@ -22,8 +13,9 @@ bool bHoveredCreature = false;
 bool bHoveredPart = false;
 bool bKeyCtrlDown = false;
 bool bKeyShiftDown = false;
+bool bM1Down = false;
 PartMode partPaintMode = Single;
-
+uint32_t current_cursor = 0x0;
 
 
 // Checks if the Editor is currently in the advanced creature paint category
@@ -84,24 +76,6 @@ Graphics::Model* IntersectPaintableRigblockModel(float mouseX, float mouseY)
 		point, point + 1000.0f * direction, nullptr, nullptr, nullptr, filter);
 }
 
-bool Editor_OnMouseDown__detour::detoured(MouseButton mouseButton, float mouseX, float mouseY, MouseState mouseState)
-{
-	sLastClickedRigblock = nullptr;
-	if (IsAdvancedPaintCategory() && mouseButton == MouseButton::kMouseButtonLeft)
-	{
-		sLastClickedRigblock = IntersectPaintableRigblockModel(mouseX, mouseY);
-		if (sLastClickedRigblock)
-		{
-			sLastClickClock = Clock(Clock::Mode::Milliseconds);
-			sLastClickClock.Start();
-			bHoveredPart = true;
-			bKeyCtrlDown = mouseState.IsCtrlDown;
-			bKeyShiftDown = mouseState.IsShiftDown;
-			CursorManager.SetActiveCursor(0x958A6A36);
-		}
-	}
-	return original_function(this, mouseButton, mouseX, mouseY, mouseState);
-}
 
 void SetRigblockPaint(
 	Editors::EditorRigblock* rigblock, 
@@ -149,14 +123,64 @@ void RemoveRigblockPaint(
 	creatureData->RemovePaintInfo(rigblockIndex, skinpaintIndex);
 }
 
+void update_cursor(uint32_t id = current_cursor) {
+	current_cursor = id;
+	CursorManager.SetActiveCursor(current_cursor);
+}
+
+uint32_t get_current_cursor() {
+	if (IsAdvancedPaintCategory() && (bHoveredCreature || bHoveredPart))
+	{
+		if (!bM1Down) {
+			if (bKeyCtrlDown) { return cur_paint_green; }
+		}
+		else if (bHoveredPart) { return cur_paint_red; }
+		return cur_paint_blue;
+	}
+	return 0x0;
+}
+
+bool Editor_OnKeyDown__detour::detoured(int virtualKey, KeyModifiers modifiers)
+{
+	bKeyCtrlDown = modifiers.IsCtrlDown;
+	return original_function(this, virtualKey, modifiers);
+}
+
+bool Editor_OnKeyUp__detour::detoured(int virtualKey, KeyModifiers modifiers)
+{
+	bKeyCtrlDown = modifiers.IsCtrlDown;
+	return original_function(this, virtualKey, modifiers);
+}
+
+bool Editor_OnMouseDown__detour::detoured(MouseButton mouseButton, float mouseX, float mouseY, MouseState mouseState)
+{
+	sLastClickedRigblock = nullptr;
+	if (IsAdvancedPaintCategory() && mouseButton == MouseButton::kMouseButtonLeft)
+	{
+		bKeyCtrlDown = mouseState.IsCtrlDown;
+		bKeyShiftDown = mouseState.IsShiftDown;
+		bM1Down = true;
+
+		sLastClickedRigblock = IntersectPaintableRigblockModel(mouseX, mouseY);
+		if (sLastClickedRigblock)
+		{
+			sLastClickClock = Clock(Clock::Mode::Milliseconds);
+			sLastClickClock.Start();
+			bHoveredPart = true;
+			update_cursor(get_current_cursor());
+		}
+	}
+	return original_function(this, mouseButton, mouseX, mouseY, mouseState);
+}
+
 bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, float mouseY, MouseState mouseState)
 {
+	bM1Down = false;
 	if (IsAdvancedPaintCategory() && mouseButton == MouseButton::kMouseButtonLeft &&
 		sLastClickClock.GetElapsedTime() < 500 &&  // accept clicks within half a second
 		Editor.GetSkin() && Editor.GetSkin()->GetMesh() && Editor.GetEditorModel())
 	{
 		bHoveredPart = false;
-		CursorManager.SetActiveCursor(0x958A6A35);
 		auto model = IntersectPaintableRigblockModel(mouseX, mouseY);
 		if (model)
 		{
@@ -197,6 +221,8 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 				if (mouseState.IsCtrlDown && bKeyCtrlDown == bool(mouseState.IsCtrlDown)) {
 					partPaintMode = Symmetric;
 				}
+				
+				/*
 				if (mouseState.IsShiftDown && bKeyShiftDown == bool(mouseState.IsShiftDown)) {
 					if (partPaintMode == Single) {
 						partPaintMode = Similar;
@@ -204,7 +230,7 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 					if (partPaintMode == Symmetric) {
 						partPaintMode = Categorical;
 					}
-				}
+				}*/
 
 				{
 					Editors::EditorRigblockPaint paint = Editor.mpPaintPaletteUI->mpActiveCategory->GetSelectedRigblockPaint();
@@ -227,7 +253,7 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 							
 						}
 					}
-					// Paint 2 parts
+					// Paint 2 symmetric parts
 					else if (partPaintMode == Symmetric) {
 						// Use the rigblock index to get the symmetric block index and rigblock
 						auto blockdata = Editor.GetSkin()->GetMesh()->mpCreatureData->mRigblocks[rigblockIndex];
@@ -264,6 +290,7 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 						
 
 					}
+					/*
 					// Paint all similar parts
 					else if (partPaintMode == Similar) {
 						for (auto block : GetSimilarRigblocks(rigblock)) {
@@ -306,6 +333,7 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 							}
 						}
 					}
+					*/
 
 					
 				}
@@ -316,7 +344,12 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 				Editor.CommitEditHistory(true);
 			}
 		}
+		
+		bKeyCtrlDown = mouseState.IsCtrlDown;
+		bKeyShiftDown = mouseState.IsShiftDown;
 	}
+	
+
 	sLastClickedRigblock = nullptr;
 	// We want the original function anyways because otherwise the camera doesn't work correctly
 	return original_function(this, mouseButton, mouseX, mouseY, mouseState);
@@ -324,14 +357,9 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 
 // Detour the cursor setting func
 bool SetCursor__detour::detoured(uint32_t id) {
-	if (IsAdvancedPaintCategory())
+	if (IsAdvancedPaintCategory() && current_cursor != 0x0)
 	{
-		if (bHoveredCreature) {
-			id = 0x958A6A35;
-			if (bHoveredPart) {
-				id = 0x958A6A36;
-			}
-		}
+		id = current_cursor;
 	}
 	return original_function(this, id);
 }
@@ -354,11 +382,9 @@ void Editor_Update__detour::detoured(float delta1, float delta2)
 			point, point + 1000.0f * direction, nullptr, nullptr, nullptr, filter);
 
 		bHoveredCreature = bool(model);
+		update_cursor(get_current_cursor());
 		if (model)
 		{
-			if (bHoveredCreature && !bHoveredPart) {
-				CursorManager.SetActiveCursor(0x958A6A35);
-			}
 			cEditorAnimEventPtr animEvent = new Editors::cEditorAnimEvent();
 			animEvent->MessagePost(0x6581B78E, 0, Editor.GetEditorModel());
 		}
