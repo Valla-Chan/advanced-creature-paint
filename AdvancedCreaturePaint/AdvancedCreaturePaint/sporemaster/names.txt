@@ -5,6 +5,7 @@ ACP_ce_TextureGroup_Fantasy_2
 ACP_ce_TextureGroup_Fantasy_1
 fe_skinpaint_floracoat_washShiny
 fe_skinpaint_floracoat_cow
+florapainticons~	0xf13d3d23
 be_tech_55
 be_tech_54
 materials_compiled_states_link~	0x40212000
@@ -56,13 +57,17 @@ auto_creature_paint_palette_pages~_ACP_ce_TextureGroup_Tech_1
 auto_creature_paint_palette_pages~_ACP_ce_TextureGroup_Tech_2
 Tooltip
 auto_creature_paint_palette_pages~_ACP_ce_TextureGroup_Tech_3
+ACP_skpAdvancedSplat_blendTexture_specificPart
 auto_creature_paint_palette_pages~_ACP_ce_TextureGroup_Tech_4
 ACP_lo
 creature_paint_palette_pages~	0x406b6c0d
 T
 ACP_editorPaintBrushPaletteCategory_small
+ACP_skpAdvancedSplatNormalSpec_blendG
+ACP_skpAdvancedSplatNormalSpec_blendA
 ACPButtonsContainer
 fe_skinpaint_floracoat_stripesML
+ACP_skpAdvancedSplatNormalSpec_blendB
 ve_fantasy_spots_07
 c
 ACP_ce_category_detail
@@ -74,6 +79,7 @@ ve_fantasy_spots_01
 fe_skinpaint_floracoat_kidney
 ve_fantasy_spots_09
 flora_paint_palette_pages~	0x406b6c15
+ACP_skpAdvancedSplatNormalSpec_blendR
 ve_fantasy_spots_08
 auto_creature_paint_palette_category~_ACP_ce_category_detail
 auto_flora_paint_palette_items~_ACP_ce_TextureGroup_Basic_Parts_1
@@ -130,7 +136,6 @@ ACP_ce_TextureGroup_Extra_8
 ve_airship_canvas_02
 ACP_ce_TextureGroup_Extra_4
 ACP_ce_TextureGroup_Extra_5
-
 ACP_ce_TextureGroup_Extra_6
 ACP_ce_TextureGroup_Extra_7
 ACP_ce_TextureGroup_Extra_1
@@ -155,6 +160,7 @@ be_concrete_07
 ACP_editorPaintBrushPaletteCategory
 ve_fantasy_old_car_08
 auto_flora_paint_palette~_fe_paintpalette_pagescore
+ACP_skpAdvancedSplat_paintByTintMask
 ACP_ce_category_identity
 auto_skinPaint_script~_be_tech_60
 auto_creature_paint_palette_pages~_ACP_ce_TextureGroup_Fantasy_2
@@ -242,6 +248,7 @@ be_basic_plain_wood_03
 flora_paint_palette_items~	0x406b6d15
 be_basic_plain_wood_02
 ce_p
+ACP_skpAdvancedSplat_copyTexture
 be_base_wall_trim_10
 be_brutalist_02
 ce_paint
@@ -257,6 +264,7 @@ fe_category_base
 ve_old_car_03
 ve_old_car_01
 ve_old_car_07
+ACP_black_transparent
 ve_old_car_05
 ve_old_car_04
 be_concrete_trim_03
@@ -313,6 +321,7 @@ fe_skinpaint_floracoat_platesSmall
 Tool
 ACP_skpAdvancedSplatNormalSpec
 fe_skinpaint_floracoat_waldo
+ACP_skpAdvancedSplat_paintNoMaskNoBlend
 be_zany_21
 be_zany_26
 be_zany_25
@@ -370,6 +379,7 @@ auto_creature_paint_palette_items~_ACP_ce_TextureGroup_Extra_4
 auto_creature_paint_palette_items~_ACP_ce_TextureGroup_Extra_7
 auto_creature_paint_palette_items~_ACP_ce_TextureGroup_Extra_6
 auto_creature_paint_palette_items~_ACP_ce_TextureGroup_Extra_8
+ACP_skpAdvancedSplat_paintNoMask
 ve_generic_metal_panel_10
 building_paint_palette_category~	0x406b6e29
 ItemBlockPaintTheme
@@ -492,6 +502,7 @@ ve_generic_pattern_silver_01
 be_basic_stucco_06_with_trim
 ButtonCoat
 auto_creature_paint_palette~_ACP_ce_paint_palette
+ACP_skpAdvancedSplat_copyTexture_specificPart
 auto_layouts_atlas~_editorPaintBrushPaletteCategory
 ve_airship_08
 auto_creature_paint_palette_items~_ACP_ce_page_items_base
@@ -522,6 +533,7 @@ ve_fantasy_apple_02
 auto_flora_paint_palette_items~_FE_TextureGroup_Coat_Parts
 fe_skinpaint_floracoat_blank
 Toolt
+ACP_skpAdvancedSplatNormalSpec_preBlend
 auto_flora_paint_palette~_ACP_fe_paint_palette
 ce_
 ve_old_car_21
