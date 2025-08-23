@@ -222,7 +222,7 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 					partPaintMode = Symmetric;
 				}
 				
-				/*
+#ifdef _DEBUG
 				if (mouseState.IsShiftDown && bKeyShiftDown == bool(mouseState.IsShiftDown)) {
 					if (partPaintMode == Single) {
 						partPaintMode = Similar;
@@ -230,7 +230,8 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 					if (partPaintMode == Symmetric) {
 						partPaintMode = Categorical;
 					}
-				}*/
+				}
+# endif
 
 				{
 					Editors::EditorRigblockPaint paint = Editor.mpPaintPaletteUI->mpActiveCategory->GetSelectedRigblockPaint();
@@ -290,7 +291,7 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 						
 
 					}
-					/*
+#ifdef _DEBUG
 					// Paint all similar parts
 					else if (partPaintMode == Similar) {
 						for (auto block : GetSimilarRigblocks(rigblock)) {
@@ -333,7 +334,7 @@ bool Editor_OnMouseUp__detour::detoured(MouseButton mouseButton, float mouseX, f
 							}
 						}
 					}
-					*/
+#endif
 
 					
 				}
