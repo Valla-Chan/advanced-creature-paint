@@ -1,17 +1,16 @@
-key parent palette_config~!0x7E35C190.prop
-key paletteCategoryLayoutFile editorPaintBrushPaletteCategory
 keys paletteCategoryIconList
-	editors_creature~!0xDFADBF0F.png
-	editors_creature~!0x95BECDA4.png
-	editors_creature~!0xEC662779.png
-	editors_creature~!0xA2E1740F.png
-	editors_creature~!0xE5A89205.png
-	editors_creature~!0x95BECDA4.png
-	editors_creature~!0xEE522B6B.png
-	editors_creature~!0xBF4340D9.png
-	editors_creature~!0xDFADBF0F.png
+	editors_creature~!button-pntByNmbr-norm.png
+	editors_creature~!button-pntByNmbr-off.png
+	editors_creature~!button-pntByNmbr-hl.png
+	editors_creature~!button-pntByNmbr-act.png
+	editors_creature~!button-pntByNmbr-on-norm.png
+	editors_creature~!button-pntByNmbr-off.png
+	editors_creature~!button-pntByNmbr-on-hl.png
+	editors_creature~!button-pntByNmbr-on-act.png
+	editors_creature~!button-pntByNmbr-norm.png
 end
+key paletteCategoryLayoutFile editorPaintBrushPaletteCategory
 texts paletteCategoryName
-	(be_paint!0x7e890df2) "Paintbrush Mode"
+	(be_paint!be_category_paintbrush_mode) "Paintbrush Mode"
 end
 uint32 paletteCategorySequenceNumber 500

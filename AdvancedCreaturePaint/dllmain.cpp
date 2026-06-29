@@ -3,6 +3,7 @@
 #include "AdvancedCreatureDataResource.h"
 #include "UserInteractionDetours.h"
 #include "PaintSystemDetours.h"
+#include "PaintPaletteDetours.h"
 #include <Spore\GeneralAllocator.h>
 #include <Spore\Skinner\cPaintSystem.h>
 
@@ -31,7 +32,7 @@ member_detour(EditorModel_Save__detour, Editors::EditorModel, void(Editors::cEdi
 
 		// This is what Spore does, maybe the parameter can be something else? no idea
 		auto resource = object_cast<Editors::cEditorResource>(resourceParam);
-		if (field_2C && resource)
+		if (mbAllBlocksLoaded && resource)
 		{
 			for (unsigned int i = 0; i < mRigblocks.size(); i++)
 			{
@@ -53,10 +54,10 @@ member_detour(EditorModel_Save__detour, Editors::EditorModel, void(Editors::cEdi
 	}
 };
 
-
 void Initialize()
 {
 	PreloadCursors();
+	LoadACPPalettes();
 }
 
 void Dispose()
@@ -67,6 +68,12 @@ void AttachDetours()
 {
 	EditorModel_Load__detour::attach(GetAddress(Editors::EditorModel, Load));
 	EditorModel_Save__detour::attach(GetAddress(Editors::EditorModel, Save));
+
+	PalettePageLoad__detour::attach(GetAddress(Palettes::PalettePage, Load));
+	PaletteItem_Load__detour::attach(GetAddress(Palettes::PaletteItem, Load));
+	PaletteReadProp__detour::attach(GetAddress(Palettes::PaletteMain, ReadProp));
+	PaletteReadModuleProp__detour::attach(GetAddress(Palettes::PaletteMain, ReadModuleProp));
+
 	Editor_HandleMessage__detour::attach(GetAddress(Editors::cEditor, HandleMessage));
 	Editor_OnMouseDown__detour::attach(GetAddress(Editors::cEditor, OnMouseDown));
 	Editor_OnMouseUp__detour::attach(GetAddress(Editors::cEditor, OnMouseUp));

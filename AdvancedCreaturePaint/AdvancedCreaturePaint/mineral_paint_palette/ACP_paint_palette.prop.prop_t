@@ -1,0 +1,12 @@
+# This manifest and all others in this directory (except ACP_be_paint_palette.prop)
+# will be loaded in building editors, vehicle editors, and all editors that enable ACP
+keys palettePalettePages
+	building_paint_palette_pages~!ACP_be_TextureGroup_Extra_1
+	building_paint_palette_pages~!ACP_be_TextureGroup_Extra_2
+	building_paint_palette_pages~!ACP_be_TextureGroup_Extra_3
+	building_paint_palette_pages~!ACP_be_TextureGroup_Extra_4
+	building_paint_palette_pages~!ACP_be_TextureGroup_Extra_5
+	building_paint_palette_pages~!ACP_be_TextureGroup_Extra_6
+	building_paint_palette_pages~!ACP_be_TextureGroup_Extra_7
+	building_paint_palette_pages~!ACP_be_TextureGroup_Extra_8
+end

@@ -22,6 +22,7 @@ uint32_t current_cursor = 0x0;
 bool IsAdvancedPaintCategory()
 {
 	if (!Editor.IsMode(Editors::Mode::PaintMode)) return false;
+
 	auto activeCategory = Editor.mpPaintPaletteUI->mpActiveCategory;
 	return activeCategory && activeCategory->mpCategory->mCategoryID == ACP_CATEGORY_ID;
 }

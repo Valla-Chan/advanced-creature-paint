@@ -4,7 +4,7 @@
 
 // We use this file for the user-side of the mod: the paint categories, clicking on parts, etc
 
-const uint32_t ACP_CATEGORY_ID = id("ACP_ce_category_paintbrush");
+const uint32_t ACP_CATEGORY_ID = id("ACP_ce_category_paintbrush"); //id("be_category_paintbrush_mode"); //
 const uint32_t ACP_PAINT_DEFAULT = id("VE_Old_Car_Matte_01");
 enum PartMode {
 	Single,

@@ -1,0 +1,5 @@
+key parent palette_config~!TemplatePaletteBlockPaint.prop
+string16 description "extra"
+key palettePageParentCategory building_paint_palette_category~!be_category_paintbrush_mode
+uint32 palettePageSequenceNumber 705
+int32 palettePageSetId hash(PaintMisc)

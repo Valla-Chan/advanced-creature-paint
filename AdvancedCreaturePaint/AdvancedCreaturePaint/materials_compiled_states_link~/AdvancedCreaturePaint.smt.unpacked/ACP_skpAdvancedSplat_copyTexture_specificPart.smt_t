@@ -27,5 +27,4 @@ compiledState state-0
 	end
 end
 
-
 material ACP_skpAdvancedSplat_copyTexture_specificPart -states state-0

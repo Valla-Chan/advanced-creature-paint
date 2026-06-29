@@ -1,0 +1,15 @@
+# This manifest will not be loaded in vehicle editors.
+keys palettePalettePages
+	building_paint_palette_pages~!be_TextureGroup_Basic_1
+	building_paint_palette_pages~!be_TextureGroup_Basic_2
+	building_paint_palette_pages~!be_TextureGroup_Fantasy_1
+	building_paint_palette_pages~!be_TextureGroup_Fantasy_2
+	building_paint_palette_pages~!be_TextureGroup_Old_1
+	building_paint_palette_pages~!be_TextureGroup_Old_2
+	building_paint_palette_pages~!be_TextureGroup_Tech_1
+	building_paint_palette_pages~!be_TextureGroup_Tech_2
+	building_paint_palette_pages~!be_TextureGroup_Tech_3
+	building_paint_palette_pages~!be_TextureGroup_Tech_4
+	building_paint_palette_pages~!be_TextureGroup_zany_1
+	building_paint_palette_pages~!be_TextureGroup_zany_2
+end

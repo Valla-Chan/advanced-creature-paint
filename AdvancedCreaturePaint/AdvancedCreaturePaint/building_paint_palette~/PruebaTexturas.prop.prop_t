@@ -1,0 +1,4 @@
+# Name overrides B&V fusion file, do not change.
+bool loadMineralPaints true
+keys palettePalettePages
+end
